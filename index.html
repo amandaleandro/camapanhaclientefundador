@@ -17,8 +17,8 @@
     .container{width:min(1160px,calc(100% - 40px));margin:auto}
     header{height:76px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.96)}
     header .container{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
-    .brand-logo{display:block;width:190px;height:60px;overflow:hidden}
-    .logo{display:block;width:190px;height:190px;object-fit:contain;transform:translateY(-65px) scale(1.7)}
+    .brand-logo{display:block;width:184px}
+    .logo{display:block;width:100%;height:auto}
     .header-note{display:flex;align-items:center;gap:9px;color:var(--blue);font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
     .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(34,189,72,.12)}
     .hero{position:relative;overflow:hidden;background:linear-gradient(110deg,#f9fcff 0%,#eff7ff 100%);border-bottom:1px solid var(--line)}
@@ -84,7 +84,7 @@
       .fit-grid{grid-template-columns:1fr}
     }
     @media(max-width:520px){
-      .container{width:min(100% - 28px,1160px)}header{height:70px}.brand-logo{width:150px;height:54px}.logo{width:150px;height:150px;transform:translateY(-48px) scale(1.7)}.header-note{font-size:10px}
+      .container{width:min(100% - 28px,1160px)}header{height:70px}.brand-logo{width:150px}.header-note{font-size:10px}
       .hero-grid{padding-top:48px}h1{font-size:43px}.lead{font-size:16px}.hero-points{display:grid;justify-content:start;text-align:left}
       .fe{max-height:365px}.info-grid{grid-template-columns:1fr}.info-item{padding:13px;border-right:0;border-bottom:1px solid rgba(255,255,255,.14)}
       .content{padding:52px 0}.form-card{padding:22px}.fit{padding:52px 0}.final-cta{padding:50px 0}
@@ -94,7 +94,7 @@
 <body>
   <header>
     <div class="container">
-      <a class="brand-logo" href="#" aria-label="FechaPro"><img class="logo" src="assets/logo.png" alt="FechaPro"></a>
+      <a class="brand-logo" href="#" aria-label="FechaPro"><img class="logo" src="assets/logo-header-clean.png" alt="FechaPro"></a>
       <div class="header-note"><span class="dot"></span>Inscrições abertas</div>
     </div>
   </header>
