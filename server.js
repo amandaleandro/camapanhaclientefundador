@@ -62,8 +62,8 @@ function serveFile(res, filePath) {
 function csv(leads) {
   const escape = value => `"${String(value ?? "").replaceAll('"', '""')}"`;
   return [
-    ["Nome", "WhatsApp", "Data de cadastro"].map(escape).join(","),
-    ...leads.map(lead => [lead.nome, lead.whatsapp, lead.createdAt].map(escape).join(","))
+    ["Nome", "WhatsApp", "E-mail", "Data de cadastro"].map(escape).join(","),
+    ...leads.map(lead => [lead.nome, lead.whatsapp, lead.email, lead.createdAt].map(escape).join(","))
   ].join("\n");
 }
 
@@ -72,14 +72,15 @@ const server = http.createServer(async (req, res) => {
 
   if (req.method === "POST" && url.pathname === "/api/leads") {
     try {
-      const { nome = "", whatsapp = "" } = await parseBody(req);
+      const { nome = "", whatsapp = "", email = "" } = await parseBody(req);
       const cleanName = String(nome).trim().slice(0, 100);
       const cleanPhone = String(whatsapp).replace(/\D/g, "").slice(0, 11);
-      if (cleanName.length < 2 || cleanPhone.length < 10) return send(res, 400, { error: "Preencha nome e WhatsApp corretamente." });
+      const cleanEmail = String(email).trim().toLowerCase().slice(0, 150);
+      if (cleanName.length < 2 || cleanPhone.length < 10 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) return send(res, 400, { error: "Preencha nome, WhatsApp e e-mail corretamente." });
       const leads = readLeads();
       const existing = leads.find(lead => lead.whatsapp === cleanPhone);
       if (!existing) {
-        leads.push({ id: crypto.randomUUID(), nome: cleanName, whatsapp: cleanPhone, createdAt: new Date().toISOString() });
+        leads.push({ id: crypto.randomUUID(), nome: cleanName, whatsapp: cleanPhone, email: cleanEmail, createdAt: new Date().toISOString() });
         writeLeads(leads);
       }
       return send(res, existing ? 200 : 201, { ok: true });

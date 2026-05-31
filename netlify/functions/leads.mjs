@@ -20,16 +20,18 @@ export default async (request) => {
 
   if (request.method === "POST") {
     try {
-      const { nome = "", whatsapp = "" } = await request.json();
+      const { nome = "", whatsapp = "", email = "" } = await request.json();
       const cleanName = String(nome).trim().slice(0, 100);
       const cleanPhone = String(whatsapp).replace(/\D/g, "").slice(0, 11);
-      if (cleanName.length < 2 || cleanPhone.length < 10) {
-        return json(400, { error: "Preencha nome e WhatsApp corretamente." });
+      const cleanEmail = String(email).trim().toLowerCase().slice(0, 150);
+      if (cleanName.length < 2 || cleanPhone.length < 10 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+        return json(400, { error: "Preencha nome, WhatsApp e e-mail corretamente." });
       }
       await store.setJSON(`${new Date().toISOString()}-${crypto.randomUUID()}`, {
         id: crypto.randomUUID(),
         nome: cleanName,
         whatsapp: cleanPhone,
+        email: cleanEmail,
         createdAt: new Date().toISOString()
       });
       return json(201, { ok: true });
