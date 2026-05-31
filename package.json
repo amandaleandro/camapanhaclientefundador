@@ -1,0 +1,7 @@
+{
+  "name": "landing-fechapro",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  }
+}

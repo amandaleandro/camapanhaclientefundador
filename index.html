@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupo gratuito | Orçamento que Fecha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    *{margin:0}
+    :root{--blue:#062b65;--blue-2:#075fe4;--green:#22bd48;--ink:#10233e;--muted:#617089;--line:#dce6f1;--soft:#f3f8fd;--white:#fff}
+    html{scroll-behavior:smooth}
+    body{font-family:"Manrope",Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1160px,calc(100% - 40px));margin:auto}
+    header{height:82px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.96)}
+    header .container{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .logo{display:block;width:176px;height:58px;object-fit:contain}
+    .header-note{display:flex;align-items:center;gap:9px;color:var(--blue);font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(34,189,72,.12)}
+    .hero{position:relative;overflow:hidden;background:linear-gradient(110deg,#f9fcff 0%,#eff7ff 100%);border-bottom:1px solid var(--line)}
+    .hero::after{content:"";position:absolute;right:-120px;bottom:-220px;width:620px;height:620px;border-radius:50%;border:80px solid rgba(7,95,228,.045)}
+    .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);align-items:center;min-height:670px}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:22px;color:var(--blue-2);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .eyebrow::before{content:"";display:block;width:28px;height:2px;background:var(--green)}
+    h1{max-width:690px;color:var(--blue);font-size:clamp(42px,5.3vw,66px);line-height:1.07;letter-spacing:-.055em}
+    h1 span{color:var(--blue-2)}
+    .lead{max-width:620px;margin:24px 0 30px;color:var(--muted);font-size:18px}
+    .lead strong{color:var(--ink)}
+    .hero-points{display:flex;flex-wrap:wrap;gap:14px 22px;margin-bottom:34px;color:var(--ink);font-size:14px;font-weight:700}
+    .hero-points span{display:flex;align-items:center;gap:8px}
+    .check{display:grid;width:20px;height:20px;place-items:center;border-radius:50%;background:#daf6df;color:#159336;font-size:12px}
+    .cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:17px 25px;border-radius:9px;background:var(--green);color:#fff;font-weight:800;box-shadow:0 10px 24px rgba(34,189,72,.22);transition:.2s}
+    .cta:hover{background:#18a83b;transform:translateY(-2px)}
+    .hero-art{align-self:end;display:flex;justify-content:center}
+    .fe{display:block;max-height:620px;max-width:100%;object-fit:contain;object-position:bottom}
+    .info-strip{background:var(--blue);color:#fff}
+    .info-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+    .info-item{padding:20px 24px;text-align:center;border-right:1px solid rgba(255,255,255,.14);font-size:14px}
+    .info-item:last-child{border:0}
+    .info-item strong{display:block;color:#80e794;font-size:16px}
+    .content{padding:88px 0;background:#fff}
+    .content-grid{display:grid;grid-template-columns:1fr 420px;gap:70px;align-items:start}
+    .section-tag{color:var(--blue-2);font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+    h2{margin-top:10px;color:var(--blue);font-size:clamp(28px,3vw,40px);line-height:1.15;letter-spacing:-.04em}
+    .intro{max-width:650px;margin-top:17px;color:var(--muted)}
+    .lessons{display:grid;gap:12px;margin-top:30px}
+    .lesson{display:flex;gap:15px;padding:18px;border:1px solid var(--line);border-radius:10px;background:#fff}
+    .num{display:grid;flex:0 0 32px;height:32px;place-items:center;border-radius:8px;background:#e7f1ff;color:var(--blue-2);font-size:13px;font-weight:800}
+    .lesson p{font-size:14px;color:#475a74}
+    .lesson strong{display:block;margin-bottom:2px;color:var(--ink)}
+    .form-card{position:sticky;top:22px;padding:30px;border:1px solid #cfdeed;border-radius:14px;background:var(--soft);box-shadow:0 14px 38px rgba(11,55,105,.1)}
+    .form-card h2{margin:0;font-size:27px}
+    .form-card>p{margin:8px 0 22px;color:var(--muted);font-size:14px}
+    .field{margin-bottom:14px}
+    label{display:block;margin-bottom:6px;color:var(--blue);font-size:12px;font-weight:800;text-transform:uppercase}
+    input{width:100%;padding:14px 15px;border:1px solid #cedbea;border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:14px;outline:none}
+    input:focus{border-color:var(--blue-2);box-shadow:0 0 0 3px rgba(7,95,228,.1)}
+    button{width:100%;border:0;cursor:pointer;font:inherit}
+    .privacy{margin-top:12px;color:#7a899e;font-size:11px;text-align:center}
+    .form-error{display:none;margin:10px 0 0;color:#bb2929;font-size:12px;text-align:center}
+    .success{display:none;text-align:center}
+    .success-icon{display:grid;width:58px;height:58px;margin:0 auto 15px;place-items:center;border-radius:50%;background:#dff7e4;color:#159336;font-size:26px;font-weight:800}
+    .success p{margin:9px 0 20px;color:var(--muted);font-size:14px}
+    .gift{margin-top:14px;padding:15px 17px;border-radius:9px;background:#eef8f0;color:#347242;font-size:13px}
+    footer{padding:28px 0;border-top:1px solid var(--line);color:#7a899e;font-size:12px;text-align:center}
+    @media(max-width:850px){
+      .hero-grid{grid-template-columns:1fr;min-height:auto;padding-top:64px;text-align:center}
+      .eyebrow{justify-content:center}.lead{margin-inline:auto}.hero-points{justify-content:center}
+      .hero-art{margin-top:34px}.fe{max-height:440px}
+      .content{padding:64px 0}.content-grid{grid-template-columns:1fr;gap:34px}.form-card{position:static}
+    }
+    @media(max-width:520px){
+      .container{width:min(100% - 28px,1160px)}header{height:70px}.logo{width:145px;height:50px}.header-note{font-size:10px}
+      .hero-grid{padding-top:48px}h1{font-size:43px}.lead{font-size:16px}.hero-points{display:grid;justify-content:start;text-align:left}
+      .fe{max-height:365px}.info-grid{grid-template-columns:1fr}.info-item{padding:13px;border-right:0;border-bottom:1px solid rgba(255,255,255,.14)}
+      .content{padding:52px 0}.form-card{padding:22px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <img class="logo" src="assets/logo.png" alt="FechaPro">
+      <div class="header-note"><span class="dot"></span>Inscrições abertas</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Grupo gratuito · 02 a 04 de junho</p>
+          <h1>Seu orçamento foi visto. <span>E agora?</span></h1>
+          <p class="lead">Aprenda a transformar conversas no WhatsApp em <strong>propostas profissionais que ajudam você a vender mais</strong>, sem depender de mensagens soltas ou insistência.</p>
+          <div class="hero-points">
+            <span><i class="check">✓</i>3 dias de conteúdo prático</span>
+            <span><i class="check">✓</i>Grupo gratuito</span>
+            <span><i class="check">✓</i>Guia em PDF de presente</span>
+          </div>
+          <a class="cta" href="#inscricao">Quero participar gratuitamente <span>→</span></a>
+        </div>
+        <div class="hero-art">
+          <img class="fe" src="assets/fe.png" alt="Fê, assistente virtual da FechaPro">
+        </div>
+      </div>
+    </section>
+
+    <section class="info-strip">
+      <div class="container info-grid">
+        <div class="info-item"><strong>02 a 04/06</strong>Conteúdo direto ao ponto</div>
+        <div class="info-item"><strong>100% gratuito</strong>Participação pelo WhatsApp</div>
+        <div class="info-item"><strong>Vagas limitadas</strong>Entre no grupo enquanto está aberto</div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="container content-grid">
+        <div>
+          <p class="section-tag">Orçamento que fecha</p>
+          <h2>Chega de perder clientes por falta de estrutura.</h2>
+          <p class="intro">Em três dias, você vai entender como apresentar seu trabalho com mais clareza, acompanhar o interesse do cliente e conduzir o fechamento com segurança.</p>
+          <div class="lessons">
+            <article class="lesson"><div class="num">01</div><p><strong>Saia do orçamento improvisado</strong>Entenda o que muda quando o cliente recebe uma proposta profissional.</p></article>
+            <article class="lesson"><div class="num">02</div><p><strong>Apresente valor antes do preço</strong>Use os cinco elementos que tornam sua proposta mais convincente.</p></article>
+            <article class="lesson"><div class="num">03</div><p><strong>Faça follow-up na hora certa</strong>Saiba quando o cliente abriu sua proposta e conduza a próxima conversa.</p></article>
+            <article class="lesson"><div class="num">04</div><p><strong>Fortaleça sua credibilidade</strong>Inclua portfólio e depoimentos para vender sem baixar o preço.</p></article>
+          </div>
+        </div>
+
+        <aside class="form-card" id="inscricao">
+          <div id="formArea">
+            <h2>Garanta sua vaga</h2>
+            <p>Preencha seus dados para receber o link de acesso ao grupo.</p>
+            <form id="form" name="inscricoes-fechapro" method="POST" data-netlify="true" netlify-honeypot="site-confirmation">
+              <input type="hidden" name="form-name" value="inscricoes-fechapro">
+              <p hidden>
+                <label>Não preencha este campo: <input name="site-confirmation"></label>
+              </p>
+              <div class="field">
+                <label for="nome">Seu nome</label>
+                <input type="text" id="nome" name="nome" placeholder="Como podemos chamar você?" required>
+              </div>
+              <div class="field">
+                <label for="whatsapp">WhatsApp com DDD</label>
+                <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required>
+              </div>
+              <button class="cta" type="submit">Entrar no grupo gratuitamente <span>→</span></button>
+            </form>
+            <p class="form-error" id="formError"></p>
+            <p class="privacy">Seus dados serão usados apenas para enviar informações sobre o evento.</p>
+          </div>
+          <div class="success" id="success">
+            <div class="success-icon">✓</div>
+            <h2>Vaga garantida, <span id="nomeOk"></span>!</h2>
+            <p>Agora é só entrar no grupo para acompanhar todo o conteúdo.</p>
+            <a class="cta" href="https://chat.whatsapp.com/G4WmvOf6zVY2lh5jkRQqAb" target="_blank" rel="noopener">Entrar no grupo agora <span>→</span></a>
+          </div>
+          <div class="gift">Você também recebe o guia em PDF <strong>"Do WhatsApp para o Sim"</strong>.</div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>FechaPro · Propostas profissionais para autônomos brasileiros</footer>
+  <script>
+    const form = document.getElementById("form");
+    const whatsapp = document.getElementById("whatsapp");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const nome = document.getElementById("nome").value.trim();
+      if (!nome || !whatsapp.value.trim()) return;
+      const button = form.querySelector("button");
+      const error = document.getElementById("formError");
+      button.disabled = true;
+      button.textContent = "Enviando...";
+      error.style.display = "none";
+      try {
+        const isLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
+        const response = await fetch(isLocal ? "/api/leads" : "/", {
+          method: "POST",
+          headers: { "Content-Type": isLocal ? "application/json" : "application/x-www-form-urlencoded" },
+          body: isLocal
+            ? JSON.stringify({ nome, whatsapp: whatsapp.value })
+            : new URLSearchParams(new FormData(form)).toString()
+        });
+        if (!response.ok) throw new Error();
+        document.getElementById("nomeOk").textContent = nome.split(" ")[0];
+        document.getElementById("formArea").style.display = "none";
+        document.getElementById("success").style.display = "block";
+      } catch {
+        error.textContent = "Não foi possível concluir seu cadastro. Tente novamente.";
+        error.style.display = "block";
+        button.disabled = false;
+        button.innerHTML = "Entrar no grupo gratuitamente <span>→</span>";
+      }
+    });
+    whatsapp.addEventListener("input", (event) => {
+      let value = event.target.value.replace(/\D/g, "").slice(0, 11);
+      if (value.length >= 7) value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+      else if (value.length >= 3) value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+      else if (value.length) value = `(${value}`;
+      event.target.value = value;
+    });
+  </script>
+</body>
+</html>
