@@ -10,14 +10,30 @@
 </head>
 <body>
   <main class="wrap">
-    <div class="top"><div><h1>Cadastros FechaPro</h1><p id="count">Carregando...</p></div><a class="btn" href="/api/leads.csv">Exportar CSV</a></div>
+    <div class="top"><div><h1>Cadastros FechaPro</h1><p id="count">Carregando...</p></div><a class="btn" href="/api/leads.csv" id="export">Exportar CSV</a></div>
     <div class="card"><table><thead><tr><th>Nome</th><th>WhatsApp</th><th>Cadastro</th></tr></thead><tbody id="rows"></tbody></table><div class="empty" id="empty" hidden>Nenhum cadastro recebido ainda.</div></div>
   </main>
   <script>
-    fetch("/api/leads").then(response => response.json()).then(leads => {
+    const isLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
+    const password = isLocal ? "" : prompt("Digite a senha administrativa:");
+    const options = isLocal ? {} : { headers: { "x-admin-password": password || "" } };
+    let currentLeads = [];
+    fetch(isLocal ? "/api/leads" : "/.netlify/functions/leads", options).then(response => {
+      if (!response.ok) throw new Error("Não foi possível acessar os cadastros.");
+      return response.json();
+    }).then(leads => {
+      currentLeads = leads;
       document.getElementById("count").textContent = `${leads.length} pessoa${leads.length === 1 ? "" : "s"} cadastrada${leads.length === 1 ? "" : "s"}`;
       document.getElementById("empty").hidden = leads.length > 0;
       document.getElementById("rows").innerHTML = leads.map(lead => `<tr><td>${escapeHtml(lead.nome)}</td><td>${phone(lead.whatsapp)}</td><td>${new Date(lead.createdAt).toLocaleString("pt-BR")}</td></tr>`).join("");
+    }).catch(error => document.getElementById("count").textContent = error.message);
+    if (!isLocal) document.getElementById("export").addEventListener("click", event => {
+      event.preventDefault();
+      const escape = value => `"${String(value || "").replaceAll('"', '""')}"`;
+      const rows = [["Nome", "WhatsApp", "Data de cadastro"], ...currentLeads.map(lead => [lead.nome, phone(lead.whatsapp), new Date(lead.createdAt).toLocaleString("pt-BR")])];
+      const blob = new Blob([`\uFEFF${rows.map(row => row.map(escape).join(",")).join("\n")}`], { type: "text/csv;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob); link.download = "leads-fechapro.csv"; link.click(); URL.revokeObjectURL(link.href);
     });
     function escapeHtml(text){const div=document.createElement("div");div.textContent=text;return div.innerHTML}
     function phone(value){return value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")}

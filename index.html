@@ -217,12 +217,10 @@
       error.style.display = "none";
       try {
         const isLocal = ["localhost", "127.0.0.1"].includes(location.hostname);
-        const response = await fetch(isLocal ? "/api/leads" : "/", {
+        const response = await fetch(isLocal ? "/api/leads" : "/.netlify/functions/leads", {
           method: "POST",
-          headers: { "Content-Type": isLocal ? "application/json" : "application/x-www-form-urlencoded" },
-          body: isLocal
-            ? JSON.stringify({ nome, whatsapp: whatsapp.value })
-            : new URLSearchParams(new FormData(form)).toString()
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, whatsapp: whatsapp.value })
         });
         if (!response.ok) throw new Error();
         document.getElementById("nomeOk").textContent = nome.split(" ")[0];
